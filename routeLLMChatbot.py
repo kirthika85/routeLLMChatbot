@@ -82,6 +82,8 @@ st.header("Chat Interface")
 st.session_state.strong_model_calls = 0
 st.session_state.weak_model_calls = 0
 st.session_state.total_calls = 0
+st.session_state.total_cost=0
+st.session_state.total_latency=0
 
 # Display chat history
 for message in st.session_state.chat_history:
@@ -194,9 +196,9 @@ if st.button("Run 50 Questions Analysis"):
     st.dataframe(df)
 
     # Calculate totals
-    total_calls =  st.session_state.strong_model_calls +  st.session_state.weak_model_calls
-    total_cost = df['Cost ($)'].sum()
-    total_latency = df['Latency (s)'].sum()
+    st.session_state.total_calls =  st.session_state.strong_model_calls +  st.session_state.weak_model_calls
+    st.session_state.total_cost = df['Cost ($)'].sum()
+    st.session_state.total_latency = df['Latency (s)'].sum()
 
 # Create summary table with all metrics
 st.subheader("Model Usage and Overall Metrics Summary")
