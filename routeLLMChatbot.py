@@ -165,7 +165,7 @@ if st.button("Run 50 Questions Analysis"):
         
         if "gpt-4" in selected_model.lower():
             strong_model_calls += 1
-        elif "Mool AI" in selected_model.lower():
+        elif "Mool AI" in selected_model:
             weak_model_calls += 1
         
         progress_bar.progress((i + 1) / len(questions))
