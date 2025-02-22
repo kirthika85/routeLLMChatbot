@@ -160,7 +160,13 @@ questions = [
     "What is the first planet in the Solar system",
     "What is in the center of the Solar system?",
     "Which planet has rings around it in Solar system?",
-    "What organ in the human body is used to taste?"
+    "What organ in the human body is used to taste?",
+    "What is overfitting in machine learning?",
+    "What is the difference between Supervised and unsupervised learning?",
+    "How does reinforcement learning differ from traditional ML approaches?",
+    "What are the main trade-offs between precision and recall?",
+    "How do transformers differ from RNNs?",
+    "
 ]
 
 if st.button("Run 50 Questions Analysis"):
