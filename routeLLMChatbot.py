@@ -45,9 +45,9 @@ if 'controller' not in st.session_state:
 controller = st.session_state.get('controller', None)
 
 def calculate_cost(model_name, input_tokens, output_tokens):
-    if model_name == "gpt-4o":
+    if model_name.startswith("gpt-4o"):
         return (input_tokens * 5e-6) + (output_tokens * 1.5e-5)
-    elif model_name == "gpt-3.5-turbo":
+    elif model_name.startswith("gpt-3.5"):
         return (input_tokens * 2.5e-7) + (output_tokens * 1.25e-6)
     else:
         return 0
