@@ -162,7 +162,7 @@ questions = [
 
 if st.button("Run 50 Questions Analysis"):
     metrics = []
-    
+    df = pd.DataFrame()
     progress_bar = st.progress(0)
     for i, question in enumerate(questions):
         response, model_used, latency, cost, input_tokens, output_tokens, selected_model = get_response(question)
