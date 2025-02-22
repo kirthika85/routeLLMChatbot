@@ -140,7 +140,22 @@ questions = [
     "What is 15% of 200?",
     "If all cats have fur and Whiskers is a cat, does Whiskers have fur?",
     "A train leaves at 10:00 AM, traveling at 60 mph. How far does it travel in 3 hours?",
-    "A farmer has 10 chickens and 5 cows. How many legs are there in total?"
+    "A farmer has 10 chickens and 5 cows. How many legs are there in total?",
+    "If A is taller than B and B is taller than C, who is the tallest?",
+    "What is the capital of Japan?",
+    "What is the capital of UK?",
+    "Write a 4 line story about Elsa?",
+    "Write a 4 line story about Belle?",
+    "What organ in the human body pumps blood?",
+    "What is the color of the sky?",
+    "What is the color of planet Mars?",
+    "Write a 4 line story about Cinderella?",
+    "Who is the author of Harry Potter Series?",
+    "What is the 3rd planet in the solar system?",
+    "Solar system is present in which galaxy?",
+    "What is in the center of the Solar system?",
+    "Which planet has rings around it in Solar system?",
+    "Which is the 6th planet in the Solar System"
 ]
 
 if st.button("Run 50 Questions Analysis"):
