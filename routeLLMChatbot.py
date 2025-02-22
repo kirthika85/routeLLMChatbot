@@ -127,7 +127,20 @@ questions = [
     "How does Kant’s categorical imperative differ from utilitarianism?",
     "What are the philosophical implications of AI consciousness?",
     "Can a machine exhibit true free will?",
-    "What is the ethical argument against data privacy violations?"
+    "What is the ethical argument against data privacy violations?",
+    "What is the capital of India?",
+    "Who wrote Pride and Prejudice?",
+    "What is the atomic number of oxygen?",
+    "How many continents are there?",
+    "What is the largest planet in our solar system?",
+    "What is 25 + 17?",
+    "Solve for x: 2x = 10",
+    "Convert 100 cm to meters",
+    "What is the square root of 144?",
+    "What is 15% of 200?",
+    "If all cats have fur and Whiskers is a cat, does Whiskers have fur?",
+    "A train leaves at 10:00 AM, traveling at 60 mph. How far does it travel in 3 hours?",
+    "A farmer has 10 chickens and 5 cows. How many legs are there in total?"
 ]
 
 if st.button("Run 50 Questions Analysis"):
