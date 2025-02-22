@@ -211,11 +211,11 @@ summary_data = {
         "Total Latency"
     ],
     "Value": [
-        total_calls,
-        strong_model_calls,
-        weak_model_calls,
-        f"${total_cost:.4f}",
-        f"{total_latency:.2f} s"
+        st.session_state.total_calls.total_calls,
+        st.session_state.total_calls.strong_model_calls,
+        st.session_state.total_calls.weak_model_calls,
+        f"${st.session_state.total_calls.total_cost:.4f}",
+        f"{st.session_state.total_calls.total_latency:.2f} s"
     ]
 }
 summary_df = pd.DataFrame(summary_data)
