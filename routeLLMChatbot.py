@@ -79,6 +79,8 @@ def get_response(prompt, router="mf"):
 
 # Chat interface
 st.header("Chat Interface")
+st.session_state.strong_model_calls = 0
+st.session_state.weak_model_calls = 0
 
 # Display chat history
 for message in st.session_state.chat_history:
@@ -160,9 +162,7 @@ questions = [
 
 if st.button("Run 50 Questions Analysis"):
     metrics = []
-    st.session_state.strong_model_calls = 0
-    st.session_state.weak_model_calls = 0
-
+    
     progress_bar = st.progress(0)
     for i, question in enumerate(questions):
         response, model_used, latency, cost, input_tokens, output_tokens, selected_model = get_response(question)
