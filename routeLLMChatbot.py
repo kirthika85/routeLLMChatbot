@@ -151,6 +151,8 @@ if st.button("Run 50 Questions Analysis"):
     progress_bar = st.progress(0)
     for i, question in enumerate(questions):
         response, model_used, latency, cost, input_tokens, output_tokens, selected_model = get_response(question)
+        if "gpt-3.5" in selected_model.lower():
+            selected_model = "Mool AI"
         
         metrics.append({
             "Question": question,
@@ -163,7 +165,7 @@ if st.button("Run 50 Questions Analysis"):
         
         if "gpt-4" in selected_model.lower():
             strong_model_calls += 1
-        elif "gpt-3.5" in selected_model.lower():
+        elif "Mool AI" in selected_model.lower():
             weak_model_calls += 1
         
         progress_bar.progress((i + 1) / len(questions))
@@ -179,7 +181,7 @@ if st.button("Run 50 Questions Analysis"):
     st.subheader("Model Usage Summary")
     col1, col2 = st.columns(2)
     col1.metric("Strong Model (GPT-4) Calls", strong_model_calls)
-    col2.metric("Weak Model (GPT-3.5) Calls", weak_model_calls)
+    col2.metric("MIP Calls", weak_model_calls)
 
     # Calculate and display totals
     st.subheader("Overall Metrics")
