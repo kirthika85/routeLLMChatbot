@@ -160,8 +160,8 @@ questions = [
 
 if st.button("Run 50 Questions Analysis"):
     metrics = []
-    strong_model_calls = 0
-    weak_model_calls = 0
+    st.session_state.strong_model_calls = 0
+    st.session_state.weak_model_calls = 0
 
     progress_bar = st.progress(0)
     for i, question in enumerate(questions):
@@ -179,9 +179,9 @@ if st.button("Run 50 Questions Analysis"):
         })
         
         if "gpt-4" in selected_model.lower():
-            strong_model_calls += 1
+             st.session_state.strong_model_calls += 1
         elif "Mool AI" in selected_model:
-            weak_model_calls += 1
+             st.session_state.weak_model_calls += 1
         
         progress_bar.progress((i + 1) / len(questions))
 
@@ -193,7 +193,7 @@ if st.button("Run 50 Questions Analysis"):
     st.dataframe(df)
 
 # Calculate totals
-total_calls = strong_model_calls + weak_model_calls
+total_calls =  st.session_state.strong_model_calls +  st.session_state.weak_model_calls
 total_cost = df['Cost ($)'].sum()
 total_latency = df['Latency (s)'].sum()
 
