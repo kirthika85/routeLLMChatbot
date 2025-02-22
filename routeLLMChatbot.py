@@ -200,11 +200,11 @@ if st.button("Run 50 Questions Analysis"):
     st.session_state.total_cost = df['Cost ($)'].sum()
     st.session_state.total_latency = df['Latency (s)'].sum()
 
-# Create summary table with all metrics
-st.subheader("Model Usage and Overall Metrics Summary")
-summary_data = {
-    "Metric": [
-        "Total Calls",
+    # Create summary table with all metrics
+    st.subheader("Model Usage and Overall Metrics Summary")
+    summary_data = {
+        "Metric": [
+         "Total Calls",
         "Strong Model (GPT-4) Calls",
         "Mool AI Calls",
         "Total Cost",
