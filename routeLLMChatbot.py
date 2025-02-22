@@ -203,12 +203,12 @@ if st.button("Run 50 Questions Analysis"):
     # Create summary table with all metrics
     st.subheader("Model Usage and Overall Metrics Summary")
     summary_data = {
-        "Metric": [
-         "Total Calls",
-        "Strong Model (GPT-4) Calls",
-        "Mool AI Calls",
-        "Total Cost",
-        "Total Latency"
+            "Metric": [
+             "Total Calls",
+            "Strong Model (GPT-4) Calls",
+            "Mool AI Calls",
+            "Total Cost",
+            "Total Latency"
     ],
     "Value": [
         st.session_state.total_calls,
@@ -217,6 +217,6 @@ if st.button("Run 50 Questions Analysis"):
         f"${st.session_state.total_cost:.4f}",
         f"{st.session_state.total_latency:.2f} s"
     ]
-}
-summary_df = pd.DataFrame(summary_data)
-st.table(summary_df)
+    }    
+    summary_df = pd.DataFrame(summary_data)
+    st.table(summary_df)
