@@ -123,7 +123,7 @@ questions = [
     "Explain how a transistor works in a circuit.",
     "Why do superconductors work at extremely low temperatures?",
     "How does quantum entanglement defy classical physics?",
-    "What is the "Trolley Problem" in ethics?",
+    "What is the Trolley Problem in ethics?",
     "How does Kant’s categorical imperative differ from utilitarianism?",
     "What are the philosophical implications of AI consciousness?",
     "Can a machine exhibit true free will?",
