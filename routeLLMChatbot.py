@@ -148,14 +148,14 @@ questions = [
     "Write a 4 line story about Belle?",
     "What organ in the human body pumps blood?",
     "What is the color of the sky?",
-    "Write a 4 line story about Mulan?",
+    "Write a 4 line story about Snow white?",
     "Write a 4 line story about Cinderella?",
     "What organ in the human body is used to see?",
     "What organ in the human body is used to hear?",
     "What is the first planet in the Solar system",
     "What is in the center of the Solar system?",
     "Which planet has rings around it in Solar system?",
-    "Which is the second planet in the solar system"
+    "What organ in the human body is used to taste?"
 ]
 
 if st.button("Run 50 Questions Analysis"):
