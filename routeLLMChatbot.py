@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 import os
 import openai
 from routellm.controller import Controller
@@ -76,6 +77,9 @@ def get_response(prompt, router="mf"):
         st.error(f"RouteLLM Error: {str(e)}")
         return f"Error: {str(e)}", None, None, None, None, None, None
 
+# Chat interface
+st.header("Chat Interface")
+
 # Display chat history
 for message in st.session_state.chat_history:
     with st.chat_message(message["role"]):
@@ -106,3 +110,68 @@ if user_input:
 if st.button("Clear Chat History"):
     st.session_state.chat_history = []
     st.rerun()
+
+# 50 Questions Analysis
+st.header("50 Questions Analysis")
+
+# List of 50 questions (you should replace these with your actual questions)
+questions = [
+    "What is the capital of France?",
+    "Explain the process of photosynthesis.",
+    "What is Bernoulli’s Principle?",
+    "How does entropy relate to the Second Law of Thermodynamics? ",
+    "Explain how a transistor works in a circuit.",
+    "Why do superconductors work at extremely low temperatures?",
+    "How does quantum entanglement defy classical physics?",
+    "What is the "Trolley Problem" in ethics?",
+    "How does Kant’s categorical imperative differ from utilitarianism?",
+    "What are the philosophical implications of AI consciousness?",
+    "Can a machine exhibit true free will?",
+    "What is the ethical argument against data privacy violations?"
+]
+
+if st.button("Run 50 Questions Analysis"):
+    metrics = []
+    strong_model_calls = 0
+    weak_model_calls = 0
+
+    progress_bar = st.progress(0)
+    for i, question in enumerate(questions):
+        response, model_used, latency, cost, input_tokens, output_tokens, selected_model = get_response(question)
+        
+        metrics.append({
+            "Question": question,
+            "Selected Model": selected_model,
+            "Latency (s)": latency,
+            "Cost ($)": cost,
+            "Input Tokens": input_tokens,
+            "Output Tokens": output_tokens
+        })
+        
+        if "gpt-4" in selected_model.lower():
+            strong_model_calls += 1
+        elif "gpt-3.5" in selected_model.lower():
+            weak_model_calls += 1
+        
+        progress_bar.progress((i + 1) / len(questions))
+
+    # Create a DataFrame from the metrics
+    df = pd.DataFrame(metrics)
+
+    # Display the table
+    st.subheader("Metrics for 50 Questions")
+    st.dataframe(df)
+
+    # Display total calls to each model
+    st.subheader("Model Usage Summary")
+    col1, col2 = st.columns(2)
+    col1.metric("Strong Model (GPT-4) Calls", strong_model_calls)
+    col2.metric("Weak Model (GPT-3.5) Calls", weak_model_calls)
+
+    # Calculate and display totals
+    st.subheader("Overall Metrics")
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Total Latency", f"{df['Latency (s)'].sum():.2f} s")
+    col2.metric("Total Cost", f"${df['Cost ($)'].sum():.4f}")
+    col3.metric("Total Input Tokens", int(df['Input Tokens'].sum()))
+    col4.metric("Total Output Tokens", int(df['Output Tokens'].sum()))
