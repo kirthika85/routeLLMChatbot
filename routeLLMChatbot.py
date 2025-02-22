@@ -166,7 +166,11 @@ questions = [
     "How does reinforcement learning differ from traditional ML approaches?",
     "What are the main trade-offs between precision and recall?",
     "How do transformers differ from RNNs?",
-    "
+    "What is the main purpose of GDPR?",
+    "How does the Fair Use Doctrine impact copyright law?",
+    "What are the key components of a legal contract?",
+    "What factors determine whether a business qualifies for antitrust regulation?",
+    "How do patents differ from trademarks?"
 ]
 
 if st.button("Run 50 Questions Analysis"):
