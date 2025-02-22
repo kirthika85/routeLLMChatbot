@@ -142,7 +142,7 @@ questions = [
     "A train leaves at 10:00 AM, traveling at 60 mph. How far does it travel in 3 hours?",
     "A farmer has 10 chickens and 5 cows. How many legs are there in total?",
     "If A is taller than B and B is taller than C, who is the tallest?",
-    "What is the capital of Japan?",
+    "What is the capital of Italy?",
     "What is the capital of UK?",
     "Write a 4 line story about Elsa?",
     "Write a 4 line story about Belle?",
@@ -192,16 +192,28 @@ if st.button("Run 50 Questions Analysis"):
     st.subheader("Metrics for 50 Questions")
     st.dataframe(df)
 
-    # Display total calls to each model
-    st.subheader("Model Usage Summary")
-    col1, col2 = st.columns(2)
-    col1.metric("Strong Model (GPT-4) Calls", strong_model_calls)
-    col2.metric("MIP Calls", weak_model_calls)
+# Calculate totals
+total_calls = strong_model_calls + weak_model_calls
+total_cost = df['Cost ($)'].sum()
+total_latency = df['Latency (s)'].sum()
 
-    # Calculate and display totals
-    st.subheader("Overall Metrics")
-    col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Total Latency", f"{df['Latency (s)'].sum():.2f} s")
-    col2.metric("Total Cost", f"${df['Cost ($)'].sum():.4f}")
-    col3.metric("Total Input Tokens", int(df['Input Tokens'].sum()))
-    col4.metric("Total Output Tokens", int(df['Output Tokens'].sum()))
+# Create summary table with all metrics
+st.subheader("Model Usage and Overall Metrics Summary")
+summary_data = {
+    "Metric": [
+        "Total Calls",
+        "Strong Model (GPT-4) Calls",
+        "Mool AI Calls",
+        "Total Cost",
+        "Total Latency"
+    ],
+    "Value": [
+        total_calls,
+        strong_model_calls,
+        weak_model_calls,
+        f"${total_cost:.4f}",
+        f"{total_latency:.2f} s"
+    ]
+}
+summary_df = pd.DataFrame(summary_data)
+st.table(summary_df)
