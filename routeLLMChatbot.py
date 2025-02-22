@@ -81,6 +81,7 @@ def get_response(prompt, router="mf"):
 st.header("Chat Interface")
 st.session_state.strong_model_calls = 0
 st.session_state.weak_model_calls = 0
+st.session_state.total_calls = 0
 
 # Display chat history
 for message in st.session_state.chat_history:
