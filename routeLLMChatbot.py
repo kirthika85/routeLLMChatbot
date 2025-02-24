@@ -53,6 +53,11 @@ def calculate_cost(model_name, input_tokens, output_tokens):
     else:
         return 0
 
+def calculate_gpt4_cost(input_tokens, output_tokens):
+    """Calculates the cost of using GPT-4 directly."""
+    return (input_tokens * 5e-6) + (output_tokens * 1.5e-5)
+
+
 def get_response(prompt, router="mf"):
     try:
         if controller is None:
@@ -177,25 +182,33 @@ if st.button("Run 50 Questions Analysis"):
     metrics = []
     df = pd.DataFrame()
     progress_bar = st.progress(0)
+    
+    total_cost_gpt4 = 0  #Initialize variable before the loop
+
     for i, question in enumerate(questions):
         response, model_used, latency, cost, input_tokens, output_tokens, selected_model = get_response(question)
         if "gpt-3.5" in selected_model.lower():
             selected_model = "Mool AI"
-        
+
+        # Calculate the cost of using GPT-4 directly
+        cost_gpt4 = calculate_gpt4_cost(input_tokens, output_tokens)
+        total_cost_gpt4 += cost_gpt4  # Accumulate
+
         metrics.append({
             "Question": question,
             "Selected Model": selected_model,
             "Latency (s)": latency,
             "Cost ($)": cost,
             "Input Tokens": input_tokens,
-            "Output Tokens": output_tokens
+            "Output Tokens": output_tokens,
+            "Cost_GPT4 ($)": cost_gpt4  # Add the GPT-4 cost to the metrics
         })
-        
+
         if "gpt-4" in selected_model.lower():
-             st.session_state.strong_model_calls += 1
+            st.session_state.strong_model_calls += 1
         elif "Mool AI" in selected_model:
-             st.session_state.weak_model_calls += 1
-        
+            st.session_state.weak_model_calls += 1
+
         progress_bar.progress((i + 1) / len(questions))
 
     # Create a DataFrame from the metrics
@@ -204,29 +217,36 @@ if st.button("Run 50 Questions Analysis"):
     # Display the table
     st.subheader("Metrics for 50 Questions")
     st.dataframe(df)
+    
+    #Calculate Savings..
+    st.session_state.total_cost = df['Cost ($)'].sum()
+    savings = total_cost_gpt4 - st.session_state.total_cost
 
     # Calculate totals
-    st.session_state.total_calls =  st.session_state.strong_model_calls +  st.session_state.weak_model_calls
-    st.session_state.total_cost = df['Cost ($)'].sum()
+    st.session_state.total_calls = st.session_state.strong_model_calls + st.session_state.weak_model_calls
     st.session_state.total_latency = df['Latency (s)'].sum()
 
     # Create summary table with all metrics
     st.subheader("Model Usage and Overall Metrics Summary")
     summary_data = {
-            "Metric": [
-             "Total Calls",
+        "Metric": [
+            "Total Number of Calls",
             "Strong Model (GPT-4) Calls",
             "Mool AI Calls",
-            "Total Cost",
-            "Total Latency"
-    ],
-    "Value": [
-        st.session_state.total_calls,
-        st.session_state.strong_model_calls,
-        st.session_state.weak_model_calls,
-        f"${st.session_state.total_cost:.4f}",
-        f"{st.session_state.total_latency:.2f} s"
-    ]
-    }    
+            "Total Cost (RouteLLM)",
+            "Total Cost (GPT-4 only)",
+            "Savings",
+            "Total Time"
+        ],
+        "Value": [
+            st.session_state.total_calls,
+            st.session_state.strong_model_calls,
+            st.session_state.weak_model_calls,
+            f"${st.session_state.total_cost:.4f}",
+            f"${total_cost_gpt4:.4f}",
+            f"${savings:.4f}",
+            f"{st.session_state.total_latency:.2f} s"
+        ]
+    }
     summary_df = pd.DataFrame(summary_data)
     st.table(summary_df)
