@@ -233,7 +233,7 @@ if st.button("Run 50 Questions Analysis"):
             "Total Number of Calls",
             "Strong Model (GPT-4) Calls",
             "Mool AI Calls",
-            "Total Cost (RouteLLM)",
+            "Total Cost (Mool AI)",
             "Total Cost (GPT-4 only)",
             "Savings",
             "Total Time"
